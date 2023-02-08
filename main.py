@@ -14,7 +14,7 @@ def futures_fall_count(simbol: str, prcnt_chng: int):
             last_price = res_prices.json()['lastPrice']  # token price on last resp
             percent_change = ((float(hr_h_price) - float(last_price)) / float(hr_h_price)) * 100
 
-            if percent_change > prcnt_chng:
+            if percent_change >= prcnt_chng:
                 print(f"drop of more than {prcnt_chng} percent from the high price of this hour,\n"
                       f"futures price {last_price}\n"
                       f"high price of this hour {hr_h_price}")
