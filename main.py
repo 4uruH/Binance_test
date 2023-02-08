@@ -2,7 +2,7 @@ import aiohttp
 import asyncio
 
 
-async def futures_fall_count(name, prcnt):
+async def futures_fall_count(name: str, prcnt: int):
     """tracking cutters of a given futures and falling of its price by more than a given percentage
         name - futures name
         prcnt - expected price drop in percent"""
@@ -11,7 +11,7 @@ async def futures_fall_count(name, prcnt):
     async with aiohttp.ClientSession() as session:
 
         while True:
-            url = f'https://api.binance.com/api/v3/ticker?symbol={name}&windowSize=1h'
+            url = f'https://api.binance.com/api/v3/ticker?symbol={name.upper()}&windowSize=1h'
             async with session.get(url) as resp:
                 data = await resp.json()
                 hr_h_price = data['highPrice']  # max price for last 1 hr
@@ -28,5 +28,5 @@ async def futures_fall_count(name, prcnt):
                 if count % 10 == 0:
                     print("Working fine! Wait for price change")
 
-
-asyncio.run(futures_fall_count('XRPUSDT', 1))
+if __name__ == "__main__":
+    asyncio.run(futures_fall_count('XRPUSDT', 1))
